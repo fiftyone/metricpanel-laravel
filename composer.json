@@ -1,0 +1,25 @@
+{
+  "name": "metricpanel/laravel",
+  "description": "Queued MetricPanel delivery for Laravel",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": "^8.2",
+    "metricpanel/php": "^0.1",
+    "illuminate/support": "^11.0 || ^12.0 || ^13.0",
+    "illuminate/bus": "^11.0 || ^12.0 || ^13.0",
+    "illuminate/queue": "^11.0 || ^12.0 || ^13.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "MetricPanel\\Laravel\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "MetricPanel\\Laravel\\MetricPanelServiceProvider"
+      ]
+    }
+  }
+}
