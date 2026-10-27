@@ -23,4 +23,13 @@ final class MetricPanel
         $job = (new DeliverIgamingEvent($event))->onConnection($this->connection)->onQueue($this->queue)->afterCommit();
         $this->dispatcher->dispatch($job);
     }
+
+    public function identify(array $event): void
+    {
+        if (!in_array($this->driver, ['redis', 'database', 'sqs', 'beanstalkd'], true)) {
+            throw new \LogicException('MetricPanel requires a durable asynchronous queue connection.');
+        }
+        $job = (new DeliverIdentity($event))->onConnection($this->connection)->onQueue($this->queue)->afterCommit();
+        $this->dispatcher->dispatch($job);
+    }
 }

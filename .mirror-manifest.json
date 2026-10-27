@@ -1,16 +1,17 @@
 {
-  "sourceCommit": "b1c8c6d3b6113b72c4f3bd2b5b08ce949a98d3a5",
+  "sourceCommit": "7570f50a1f431a2ab691bc6619fac625e334c39e",
   "name": "metricpanel/laravel",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "files": {
     "LICENSE": "dfcfcf3e5ea0d00c0c2161cfe77d98e237ac6c1ec114d926e43113805012cf63",
-    "README.md": "8f2e0f60ce6615235f450440aa8f9a9247fb64353a3e49e1bcac7cd2e7afa714",
-    "composer.json": "92172e482b41d2d21b72284bc38361216fec91007fec7f23bfaefc7a06215efe",
+    "README.md": "fc1f4e0bb046c287c9734f28705f90b79f660c1dc2dee8bd9af5916315a9ff8c",
+    "composer.json": "9bc92c33f4cae309d71d4bc8132c34654b68cde3161839c0e2a9d6d23c830224",
     "config/metricpanel.php": "5a17f474abeacaa8ec4b2ab7090a844c133a8dc7fe40a1aa7ee2eb8471276178",
+    "src/DeliverIdentity.php": "2cc2501f9b7350d1196a8e78bae1d7fb29f2eabb0a1b8f2a207c421f51fd1a53",
     "src/DeliverIgamingEvent.php": "36cd28ddc32cd2443f7242ed4c199c8ce70636bf845456bcadaeef7a90107dc9",
     "src/DeliveryResult.php": "72915c23a7a6afa05aec3dc5a04aefdfd0dd666ba83d15e32f0a2ecb1e8aad50",
-    "src/MetricPanel.php": "8ddde3e87b8c711299f79b09778e18b4b14b5eef142f33de1f2cda1bec5e5c0a",
+    "src/MetricPanel.php": "6acfe8cb862460433ae35d5ee0c0088fc0de180459a829ca78984496825748f0",
     "src/MetricPanelServiceProvider.php": "055c1313bec604d291c36cc7dcfab63ab827830acd0ed120fa3f026d83ef6137",
-    "tests/run.php": "6001e21666baca85a2e620ff11998cea22a8212a878812c6c9d2e2500bd133c0"
+    "tests/run.php": "368426d460d19da090ca2a7248d301dd0cd08e8ca5d0fb57329104f11e8f9128"
   }
 }

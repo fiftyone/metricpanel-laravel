@@ -93,3 +93,31 @@ foreach (['sync', 'deferred', 'background', 'null', ''] as $driver) {
     catch (LogicException) {}
 }
 echo "Laravel SQLite queue: commit, rollback, serialization, retry, failure and diagnostics checks passed.\n";
+
+$identity = ['eventId' => 'stable-identity-event-123', 'websiteId' => 'site', 'visitorId' => 'visitor', 'sessionId' => 'session', 'timestamp' => '2026-10-27T10:00:00Z', 'userId' => 'user-123', 'name' => 'Jane', 'email' => 'jane@example.com'];
+$db->beginTransaction();
+$sdk->identify($identity);
+check($queue->size() === 0, 'Identity enqueued before commit');
+$db->rollBack();
+check($queue->size() === 0, 'Rollback published identity');
+$db->beginTransaction();
+$sdk->identify($identity);
+$db->commit();
+check($queue->size() === 1, 'Identity not published after commit');
+$job = $queue->pop();
+$command = unserialize($job->payload()['data']['command']);
+check($command instanceof \MetricPanel\Laravel\DeliverIdentity, 'Wrong identity job');
+check($command->event === $identity, 'Identity changed in queue');
+$command->setJob($job);
+$transport->response = new HttpResponse(503, '{}');
+try { $command->handle($client); throw new RuntimeException('Transient identity failure not retried'); }
+catch (\MetricPanel\DeliveryException $e) { check($e->retryable, 'Identity failure must retry'); }
+$transport->response = new HttpResponse(202, '{"success":true,"identified":true}');
+$command->handle($client);
+check(end($results)->delivered, 'Identity acknowledgement missing');
+$job->delete();
+foreach (['sync', 'deferred', 'background', 'null', ''] as $driver) {
+    try { (new MetricPanel($bus, 'sync', 'metricpanel', $driver))->identify($identity); throw new RuntimeException('Unsafe identity queue accepted'); }
+    catch (LogicException) {}
+}
+echo "Laravel SQLite identity commit, rollback, retry and diagnostics checks passed.\n";
